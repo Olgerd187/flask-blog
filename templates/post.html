@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% block title %} {{ post['title'] }} {% endblock %}</h2>
+    {% if post['image'] %}
+        <img src="{{ url_for('static', filename='uploads/' + post['image']) }}" class="img-fluid mb-3" alt="Post image">
+    {% endif %}
+    <p>{{ post['content'] }}</p>
+    <span class="badge text-bg-primary">{{ post['created'] }}</span>
+    <a href="{{ url_for('edit', id=post['id']) }}" class="btn btn-warning btn-sm">Edit</a>
+{% endblock %}

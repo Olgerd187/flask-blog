@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Create a New Post {% endblock %}</h1>
+
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" name="title" placeholder="Post title" class="form-control" value="{{ request.form['title'] }}">
+  </div>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Content</label>
+    <textarea name="content" placeholder="Post content" class="form-control" rows="3">{{ request.form['content'] }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Image (optional)</label>
+    <input type="file" name="image" accept="image/*" class="form-control">
+    <div class="form-text">Allowed formats: PNG, JPG, JPEG, GIF. Max size 5 MB.</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Edit "{{ post['title'] }}" {% endblock %}</h1>
+
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" name="title" placeholder="Post title" class="form-control" value="{{ request.form['title'] or post['title'] }}">
+  </div>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Content</label>
+    <textarea name="content" placeholder="Post content" class="form-control" rows="3">{{ request.form['content'] or post['content'] }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Image (optional)</label>
+    {% if post['image'] %}
+        <div class="mb-2">
+            <img src="{{ url_for('static', filename='uploads/' + post['image']) }}" style="max-height: 100px;" alt="Current image">
+            <p class="small">Current image. Upload a new one to replace it.</p>
+        </div>
+    {% endif %}
+    <input type="file" name="image" accept="image/*" class="form-control">
+    <div class="form-text">Allowed formats: PNG, JPG, JPEG, GIF. Max size 5 MB.</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<hr>
+<form action="{{ url_for('delete', id=post['id']) }}" method="POST">
+  <input type="submit" value="Delete Post" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?')">
+</form>
+{% endblock %}
